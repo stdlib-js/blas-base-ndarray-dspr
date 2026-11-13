@@ -1,4 +1,4 @@
-/**
+/*
 * @license Apache-2.0
 *
 * Copyright (c) 2026 The Stdlib Authors.
@@ -16,23 +16,14 @@
 * limitations under the License.
 */
 
-'use strict';
+// TypeScript Version: 4.1
 
-// MODULES //
+/// <reference types="https://cdn.jsdelivr.net/gh/stdlib-js/types@main/index.d.ts"/>
 
-var numelDimension = require( '@stdlib/ndarray-base-numel-dimension' );
-var getOrder = require( '@stdlib/ndarray-base-order' );
-var getStride = require( '@stdlib/ndarray-base-stride' );
-var getOffset = require( '@stdlib/ndarray-base-offset' );
-var getData = require( '@stdlib/ndarray-base-data-buffer' );
-var ndarraylike2scalar = require( '@stdlib/ndarray-base-ndarraylike2scalar' );
-var strided = require( '@stdlib/blas-base-dspr' ).ndarray;
-
-
-// MAIN //
+import { float64ndarray, ndarray } from '@stdlib/types/ndarray';
 
 /**
-* Performs the symmetric rank 1 operation `A = alpha*x*x^T + A`, where `alpha` is a scalar, `x` is a one-dimensional ndarray, and `A` is an `N` by `N` symmetric matrix supplied in packed form.
+* Performs the symmetric rank 1 operation `A = alpha*x*x^T + A`, where `alpha` is a scalar, `x` is a one-dimensional ndarray, and `A` is a symmetric `N` by `N` matrix supplied in packed form.
 *
 * ## Notes
 *
@@ -43,8 +34,8 @@ var strided = require( '@stdlib/blas-base-dspr' ).ndarray;
 *     -   a zero-dimensional ndarray specifying whether the upper or lower triangular part of `A` is supplied.
 *     -   a zero-dimensional ndarray containing a scalar constant corresponding to `alpha`.
 *
-* @param {ArrayLikeObject<Object>} arrays - array-like object containing ndarrays
-* @returns {Object} output ndarray
+* @param arrays - array-like object containing ndarrays
+* @returns output ndarray
 *
 * @example
 * var Float64Vector = require( '@stdlib/ndarray-vector-float64' );
@@ -67,24 +58,9 @@ var strided = require( '@stdlib/blas-base-dspr' ).ndarray;
 * var bool = ( y === AP );
 * // returns true
 */
-function dspr( arrays ) {
-	var alpha;
-	var uplo;
-	var AP;
-	var x;
-
-	x = arrays[ 0 ];
-	AP = arrays[ 1 ];
-
-	uplo = ndarraylike2scalar( arrays[ 2 ] );
-	alpha = ndarraylike2scalar( arrays[ 3 ] );
-
-	strided( getOrder( AP ), uplo, numelDimension( x, 0 ), alpha, getData( x ), getStride( x, 0 ), getOffset( x ), getData( AP ), getStride( AP, 0 ), getOffset( AP ) ); // eslint-disable-line max-len
-
-	return AP;
-}
+declare function dspr( arrays: [ float64ndarray, float64ndarray, ndarray, float64ndarray ] ): float64ndarray;
 
 
 // EXPORTS //
 
-module.exports = dspr;
+export = dspr;
